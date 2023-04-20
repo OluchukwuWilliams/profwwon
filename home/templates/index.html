@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} |Home_page{% endblock title %}
+
+{% block header1 %} {% include 'header1.html' %} {% endblock header1 %}
+
+{% block header %}  {% include 'header.html' %} {% endblock header %}
+
+{% block carousel %}   {% include 'carousel.html' %} {% endblock carousel %}
+
+{% block content %}
+<!--content-->
+<div class="container-fluid mt-5 mb-5" id="about">
+  <h2 class="text-center prod mt-4 mb-5"> Welcome to ShoeByElite</h2>
+    <div class="row justify-content-center">
+        <div class="col-10 col-md-5">
+            <img src="{% static '' %}img/th (7).jpg" class="w-100 h-100" alt="">
+        </div>
+
+        <div class="col-10 col-md-5">
+          <div class="lib w-100">
+            <h2>What we stand for</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Nostrum labore doloremque mollitia exercitationem voluptas esse
+                 officiis, vero dolor ducimus autem!</p>
+             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Nostrum labore doloremque mollitia exercitationem voluptas esse
+                 officiis, vero dolor ducimus autem!</p>
+             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                Nostrum labore doloremque mollitia exercitationem voluptas esse
+                 officiis, vero dolor ducimus autem!</p>
+            </div>
+        </div>
+    </div>
+  </div>
+
+
+<div class="container-fluid mt-5 bg-light p-5" id="service">
+    <h2 class="produ text-center"> our category</h2>
+    <div class="row justify-content-center gy-3">
+
+
+      {% if category %}
+        {% for items in category %}
+          <div class="col-10 col-sm-10 col-md-3">
+            <div class="card h-50">
+              <img src="{{items.img.url}}" class="card-img-top h-50" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">{{items.title}}</h5>
+                <p class="card-text">{{items.description}}</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+        
+<div class="container-fluid" id=>
+    <div class="cave">
+        <h2 class="mb-5 produ text-center text-capitalize">our service</h2>
+        <p class="text-center">Lorem ipsum dolor sit amet</p>
+        <p class="text-center">Lorem ipsum dolor sit amet</p>
+        <p class="text-center">Lorem ipsum dolor sit amet</p>
+        <p class="text-center">Lorem ipsum dolor sit amet</p>
+        <p class="text-center">lorem ipsum dolor sit amet</p>
+    </div>
+</div> 
+
+{% endblock content %}
+
+{% block contact %} {% include 'contact.html' %}{% endblock contact %}
+
+{% block footer %} {% include 'footer.html' %}{% endblock footer %}
+

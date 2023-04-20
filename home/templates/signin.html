@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %} {{details.title}}{% endblock title %}
+
+{% block header1 %} {% include 'header1.html' %} {% endblock header1 %}
+
+{% block header %}  {% include 'header.html' %} {% endblock header %}
+
+{% block carousel %}   {% include 'carousel.html' %} {% endblock carousel %}
+
+{% block content %}
+
+        
+<div class="container-fluid mt-5 mb-5" id="#About">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-6">
+                <img src="{% static '' %}img/welcome1.jpg" class="w-100 h-100" alt="">    
+            </div>
+            <div class="col-12 col-md-6">
+                <h2 class="text-start mt-2">Signin</h2>
+                <div class="cform">
+                    <div class="ccform">
+                        <form action="{% url 'signin' %}" method="POST">
+                          {% csrf_token %}
+                            <div class="form-floating mb-3">
+                                <input type="text" name ="username" class="form-control" id="floatingInput" placeholder="Password">
+                                <label for="floatingInput">username</label>
+                            </div>
+
+                            <div class="form-floating mb-3 show-hide">
+                                <input type="password" name="password" class="form-control grab" id="floatingInput">
+                                <div class="show">
+                                  <i class="fa-solid fa-eye"></i>
+                                  <i class="fa-solid fa-eye-slash"></i>
+                                </div>  
+                                <label for="floatingInput">password</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="hidden" class="form-control" placeholder="file">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Signin</button>
+                            <a href="{% url 'signup' %}" class="btn btn-info">Signup</a>
+                        </form>    
+                    </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-12 col-md-2"></div> -->
+    </div>
+        
+
+        
+
+{% endblock content %}
+
+{% block contact %} {% include 'contact.html' %}{% endblock contact %}
+
+{% block footer %} {% include 'footer.html' %}{% endblock footer %}
+

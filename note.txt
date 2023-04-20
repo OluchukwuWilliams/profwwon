@@ -1,0 +1,45 @@
+python -m venv venv
+venv\Scripts\activate
+pip install django
+django-admin startproject shopping .
+py manage.py startapp home
+py manage.py startapp userprofile
+py manage.py startapp migrate
+py manage.py createsuperuser
+py manage.py runserver
+
+to call server use ctrl + click
+
+
+Model - determine how our database architecture looks like..i.e how data is being stored
+
+admin - prints out inputs from the clients on the admin panel
+
+forms - helps to make a duplicat/replica of the client form on the server side
+
+views - helps to get data/impliment functionalities
+
+urls - chains views to both templates and to the browser.
+
+models is divided into the followings:
+CharField(max_lenth=255)
+
+TextField()
+
+EmailField()
+
+URLFieild()
+
+FileField()
+
+ImageField()
+
+DateField()
+
+DateTimeField(auto_now = True, auto_add_now + True)
+
+SlugField()
+
+
+
+
