@@ -114,19 +114,14 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><a href="" class="btn btn-primary">checkout</a></td>
+            <td><a href="{% url 'checkout' %}" class="btn btn-primary">checkout</a></td>
           </tr>
 
-          </table>
-        </div>
-
+        </table>
       </div>
+
     </div>
-  </div> 
-        
-
-        
-
+</div> 
 {% endblock content %}
 
 {% block contact %} {% include 'contact.html' %}{% endblock contact %}

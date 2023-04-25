@@ -198,18 +198,18 @@ def password(request):
 login_required(login_url='signin')
 def shopcart(request):
     if request.method == 'POST':
-        quantity = int(request.POST['quantity'])
+        quant = int(request.POST['quantity'])
         item_id = request.POST['product_id']
         product = Product.objects.get(pk = item_id)
-        order_num = Profile.objects.get(user_username=request.user.username)
+        order_num = Profile.objects.get(user__username=request.user.username)
         cart_no = order_num.id 
 
         cart = Shopcart.objects.filter(user__username=request.user.username)
         if cart:
             basket = Shopcart.objects.filter(product_id=product.id, user__username=request.user.username, paid=False).first()
             if basket:
-                basket.quant +=quantity
-                basket.amount = basket.price * basket.quant 
+                basket.quantity +=quant
+                basket.amount = basket.price * basket.quantity
                 basket.save()
                 messages.success(request, 'product added to cart successfully!')
                 return redirect('product')
@@ -219,8 +219,8 @@ def shopcart(request):
                 newcart.product = product
                 newcart.title = product.name
                 newcart.price = product.price 
-                newcart.amount = product.price * quantity 
-                newcart.quant = quantity
+                newcart.amount = product.price * quant
+                newcart.quantity = quant
                 newcart.order_no = cart_no 
                 newcart.paid = False 
                 newcart.save()
@@ -232,8 +232,8 @@ def shopcart(request):
             newcart.product = product
             newcart.title = product.name
             newcart.price = product.price 
-            newcart.amount = product.price * quantity 
-            newcart.quant = quantity 
+            newcart.amount = product.price * quant
+            newcart.quantity = quant
             newcart.cart_no = cart_no 
             newcart.paid = False 
             newcart.save()
@@ -315,9 +315,9 @@ def checkout(request):
 login_required(login_url='signin')
 def pay(request):
     if request.method == 'POST':
-        api_key = 'pk_test_c5c069ac2db6e8ec2a1792492f7219b38b372b01'
-        curl = 'https://api.paystack.co/transaction/initialize'
-        cburl = 'http://127.0.0.1:8000/callback'
+        api_key = 'sk_test_e7af07a50a60ea639603b69ea005d47b33e2f62b'
+        curl = 'https://api.paystack.co/transaction/initialize/'
+        cburl = 'http://16.170.171.125/callback/'
         ref = str(uuid.uuid4())
         profile = Profile.objects.get(user__username=request.user.username)
         shop_code = profile.id 
@@ -339,7 +339,7 @@ def pay(request):
             transback = json.loads(r.text)
             rdurl = transback['data']['authorization_url']
 
-            account = Payment 
+            account = Payment() 
             account.user = user 
             account.first_name = user.first_name 
             account.last_name = user.last_name 
@@ -351,12 +351,12 @@ def pay(request):
             account.shop_code = shop_code
             account.paid = True 
             account.save()
-            return redirect('checkout')
+            return redirect(rdurl)
     return redirect('checkout')
 
 def callback(request):
     profile = Profile.objects.filter(user__username=request.user.username)
-    trolley = Shopcart.objects.filter(user__username=request.user.username, pai=False)
+    trolley = Shopcart.objects.filter(user__username=request.user.username, paid=False)
     payment = Payment.objects.filter(user__username=request.user.username, paid=True)
 
     for items in trolley:
@@ -364,7 +364,7 @@ def callback(request):
         items.save()
 
         stock = Product.objects.get(pk=items.product_id)
-        stock.quality -= items.quantity 
+        stock.max_quantity -= items.quantity 
         stock.save()
     
     context ={
@@ -377,15 +377,14 @@ def callback(request):
 def search(request):
     if request.method == 'POST':
         items = request.POST['search']
-        searched = Q(Q(name__icontains=items) | Q(description__icontains=items) |Q(category__title__icontains=items) |Q(category__title__icontains=items) |Q(slug__icontains=items) |Q(price__icontains=items))
+        searched = Q(Q(name__icontains=items) | Q(description__icontains=items) |Q(category__title__icontains=items) |Q(slug__icontains=items) |Q(price__icontains=items))
         searched_items = Product.objects.filter(searched)
 
-        context = {
-            'items': items,
-            'searched_items': searched_items,
-        }
+    context = {
+        'items': items,
+        'searched_items': searched_items,
+    }
 
-        return render(request, 'search.html', context)
-    else:
-        # messages.error(request, 'Failed')
-        return render(request, 'search.html', context)
+    return render(request, 'search.html', context)
+
+from django.db.models import Q

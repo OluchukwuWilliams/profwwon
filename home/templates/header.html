@@ -32,7 +32,7 @@
               
               {% if category %}
                 {% for items in category %}
-                  <li><a class="dropdown-item" href="{% url 'categories' items.id %}">{{items.title}}</a></li>
+                  <li><a class="dropdown-item" href="{% url 'categories' items.slug %}">{{items.title}}</a></li>
                 {% endfor %}
               {% endif %}
             </ul>
@@ -44,7 +44,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               {% if user.is_authenticated %}
                   <li><a class="dropdown-item" href="{% url 'signout' %}">signout</a></li>
-                  <li><a class="dropdown-item" href="{% url 'profile' %}"> {{user.username}} </a></li>
+                  <li><a class="dropdown-item" href="{% url 'profile' %}">{{user.username}}</a></li>
                   <li><a class="dropdown-item" href="{% url 'displaycart' %}">Shopcart
                     {% if cartcount > 0 %}
                     <span class="badge rounded-pill text-bg-info">{{cartcount}} </span>
@@ -70,7 +70,7 @@
           
         </ul>
         <form class="d-flex" action="{% url 'search' %}" method="POST">
-          {% csrf_token %}
+        {% csrf_token %}
           <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form >

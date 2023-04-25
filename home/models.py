@@ -82,13 +82,13 @@ class Shopcart(models.Model):
         return self.product.name
     
     class Meta:
-         db_table = 'shopcartr'
+         db_table = 'shopcart'
          managed = True
          verbose_name = 'Shopcart'
          verbose_name_plural = 'Shopcart'
      
 class Payment(models.Model):
-    user = models.name = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
     email = models.EmailField()

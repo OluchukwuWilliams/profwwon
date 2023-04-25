@@ -28,5 +28,5 @@ urlpatterns = [
     path('change/', change, name='change'),
     path('checkout/', checkout, name='checkout'),
     path('pay/', pay, name='pay'),
-    path('callbacl/', callback, name='callback'),
+    path('callback/', callback, name='callback'),
 ]
