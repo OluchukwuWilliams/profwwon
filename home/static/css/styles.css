@@ -191,7 +191,7 @@ html{
     background-size: cover;
     height: 70vh;
     color: blue;
-    padding-top: 2rem;
+    /* padding-top: 2rem; */
 }
 .cave ul li{
     text-decoration: none;
